@@ -22,7 +22,7 @@ print(df2)
 '''
 
 df = pd.read_excel('./data.xlsx', header=None, names=['English', 'Math', 'Chinese'])
-print(df)
+# print(df)
 # df.to_excel('data1.xlsx')
 
 # 数据清洗
@@ -82,7 +82,12 @@ df = df.apply(plus, axis=1, args=(2,3))
 print(df)
 '''
 
-print(df.describe())
+# print(df.describe())
 
+# 数据表合并
+df1 = DataFrame({'name': ['ZhangFei', 'GuanYu', 'a', 'b', 'c'], 'data1': range(5)})
+df2 = DataFrame({'name': ['ZhangFei', 'GuanYu', 'A', 'B', 'C'], 'data2': range(5)})
+print(df1)
+print(df2)
 
 
