@@ -1,4 +1,7 @@
+# -*- coding:utf-8 -*-
+
 import numpy as np
+
 '''
 a = np.array([1, 2, 3])
 b = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
@@ -108,8 +111,24 @@ print(np.sort(a, axis=1))
 
 persontype = np.dtype({
     'names': ['name', 'chinese', 'english', 'math'],
-    'formats': ['S32', 'i', 'i', 'i']
+    'formats': ['U32', 'i', 'i', 'i']
 })
 
-person = np.array([['张飞', 66, 65, 30], ['关羽', 95, 85, 98], ['赵云', 93, 92, 96], ['黄忠', 90, 88, 77], []])
+person = np.array([('张飞', 66, 65, 30), ('关羽', 95, 85, 98), ('赵云', 93, 92, 96), ('黄忠', 90, 88, 77), ('典韦', 80, 90, 90)],
+                  dtype=persontype)
+print(person)
+
+name = person[:]['name']
+chinese = person[:]['chinese']
+english = person[:]['english']
+math = person[:]['math']
+
+for i in [chinese, english, math]:
+    print(np.average(i))
+    print(np.max(i))
+    print(np.min(i))
+    print(np.var(i))
+    print(np.std(i))
+
+print(sorted(person, key=lambda a: a[1]+a[2]+a[3], reverse=True))
 
