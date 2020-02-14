@@ -29,8 +29,77 @@ print(np.mean(maths))
 print(np.mean(englishs))
 '''
 
+'''
 x1 = np.arange(1, 11, 2)
 x2 = np.linspace(1, 9, 5)
 print(x1)
 print(x2)
+print(np.add(x1, x2))
+print(np.subtract(x1, x2))
+print(np.multiply(x1, x2))
+print(np.divide(x1, x2))
+print(np.power(x1, x2))  # 在 n 次方中，x2 数组中的元素实际上是次方的次数，x1 数组的元素为基数。
+print(np.remainder(x1, x2))
+print(np.mod(x1, x2))
+'''
+
+'''
+a = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+print(a)
+
+print(np.amax(a))
+print(np.amax(a, 0))    # axis=0 横轴
+print(np.amax(a, 1))
+print(np.amin(a))
+print(np.amin(a, 0))
+print(np.amin(a, 1))
+
+# 统计最大值与最小值之差 ptp()
+print(np.ptp(a))
+print(np.ptp(a, 0))
+print(np.ptp(a, 1))
+
+# 统计数组的百分位数percentile(a,p) a是数组，p是所占百分位置，取值0-100
+print(np.percentile(a, 5))
+print(np.percentile(a, 50, axis=0))
+print(np.percentile(a, 50, axis=1))
+
+
+# 统计数组中的中位数 median()、平均数 mean()
+print(np.median(a))
+print(np.median(a, 0))
+print(np.median(a, 1))
+print(np.mean(a))
+print(np.mean(a, 0))
+print(np.mean(a, 1))
+'''
+
+'''
+# 统计数组中的加权平均值 average()
+a = np.array([1, 2, 3, 4])
+wts = np.array([1, 2, 3, 4])
+print(np.average(a))
+print(np.average(a, weights=wts))
+'''
+
+'''
+# 统计数组中的标准差 std()、方差 var()
+a = np.array([1, 2, 3, 4])
+print(np.std(a))
+print(np.var(a))
+'''
+
+# numpy排序
+# sort(a, axis=-1, kind=‘quicksort’, order=None)，默认情况下使用的是快速排序；在 kind 里，可以指定 quicksort、mergesort、heapsort 分别表示快速排序、合并排序、堆排序
+a = np.array([[4, 3, 2], [2, 4, 1]])
+print(a)
+print(np.sort(a, axis=None, kind='mergesort'))
+print(np.sort(a, axis=0))
+print(np.sort(a, axis=1))
+
+# 为什么要用 NumPy 数组结构而不是 Python 本身的列表 list？
+# 1.因为list存储的元素是分散在内存中各个位置的，而numpy存储在一段连续的内存空间，这样计算遍历元素时，无需对地址进行查找，提高了效率
+# 2.内存访问模式中，会直接把字节块从RAM拿到CPU寄存器，数据连续存储可以利用现代CPU的矢量化指令计算
+# 3.numpy矩阵可以采用多线程的方式，充分领多核CPU计算资源，大大提高了计算效率
+
 
