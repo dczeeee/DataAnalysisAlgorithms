@@ -84,10 +84,47 @@ print(df)
 
 # print(df.describe())
 
+'''
 # 数据表合并
 df1 = DataFrame({'name': ['ZhangFei', 'GuanYu', 'a', 'b', 'c'], 'data1': range(5)})
 df2 = DataFrame({'name': ['ZhangFei', 'GuanYu', 'A', 'B', 'C'], 'data2': range(5)})
 print(df1)
 print(df2)
 
+# a.基于指定列连接
+df3 = pd.merge(df1, df2, on='name')
+print(df3)
+# b.inner内连接，inner是merge的默认情况，相当于交集
+df4 = pd.merge(df1, df2, how='inner')
+print(df4)
+# c.left左连接，以第一个dataframe为主，第二个做补充
+df5 = pd.merge(df1, df2, how='left')
+print(df5)
+# d.right右连接，与left相反
+df6 = pd.merge(df1, df2, how='right')
+print(df6)
+# e.outer外连接
+df7 = pd.merge(df1, df2, how='outer')
+print(df7)
+'''
 
+data = {'chinese': [66, 95, 95, 90, 80, 80], 'english': [65, 85, 92, 88, 90, 90], 'math': [None, 98, 96, 77, 90, 90]}
+scoreDf = DataFrame(data, index=['zf', 'gy', 'zy', 'hz', 'dw', 'dw'], columns=['chinese', 'english', 'math'])
+print(scoreDf)
+# 1.去重复行
+scoreDf = scoreDf.drop_duplicates()
+print(scoreDf)
+# 2.补缺值，用数学平均成绩补zf数学
+print(scoreDf.isnull())
+scoreDf['math'].fillna(scoreDf['math'].mean(), inplace=True)
+print(scoreDf)
+
+
+# 3.增加总分列
+def total(df):
+    df['total'] = df['chinese'] + df['english'] + df['math']
+    return df
+
+
+scoreDf = scoreDf.apply(total, axis=1)
+print(scoreDf)
