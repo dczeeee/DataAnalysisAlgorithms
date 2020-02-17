@@ -17,6 +17,7 @@ header = {
 
 }
 
+
 # 下载图片
 def download(src, id):
     dir = './' + str(id) + '.jpg'
@@ -39,13 +40,13 @@ for i in range(0, 41081, 20):
         download(image['src'], image['id'])
 
 
-
 # xpath方式
 url = "https://search.douban.com/movie/subject_search?search_text=%E5%AE%AB%E5%B4%8E%E9%AA%8F&cat=1002"
 etree = ht.etree
-driver = webdriver.Chrome('../chromedriver/chromedriver')
+# driver = webdriver.Chrome('../chromedriver/chromedriver') # linux
+driver = webdriver.Chrome('../chromedriver/chromedriver.exe')   # windows
 driver.get(url)
-html = etree.HTML(url)
+html = etree.HTML(driver.page_source)
 src_xpath = "//div[@class='item-root']/a[@class='cover-link']/img[@class='cover']/@src"
 title_path = "//div[@class='item-root']/div[@class='detail']/div[@class='title']/a[@class='title-text']"
 srcs = html.xpath(src_xpath)
