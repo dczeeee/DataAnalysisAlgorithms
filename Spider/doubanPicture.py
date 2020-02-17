@@ -2,6 +2,7 @@ import requests
 import json
 from lxml import html as ht
 from selenium import webdriver
+import os
 
 query = '宫崎骏'
 header = {
@@ -19,8 +20,10 @@ header = {
 
 
 # 下载图片
-def download(src, id):
-    dir = './' + str(id) + '.webp'
+def download(path, src, id):
+    if not os.path.isdir(path):
+        os.mkdir(path)
+    dir = path + '/' + str(id) + '.webp'
     try:
         pic = requests.get(src, timeout=10)
         fp = open(dir, 'wb')
@@ -29,27 +32,34 @@ def download(src, id):
     except requests.exceptions.ConnectionError:
         print('图片无法下载')
 
-'''
+
 # json方式
 for i in range(0, 41081, 20):
-    url = 'https://www.douban.com/j/search_photo?q=' + query + '&limit=20&start=' + str(i)
-    html = requests.get(url, headers=header).text
-    response = json.loads(html, encoding='utf-8')
-    for image in response['images']:
-        print(image['src'])
-        download(image['src'], image['id'])
-'''
+    try:
+        url = 'https://www.douban.com/j/search_photo?q=' + query + '&limit=20&start=' + str(i)
+        html = requests.get(url, headers=header).text
+        response = json.loads(html, encoding='utf-8')
+        for image in response['images']:
+            print(image['src'])
+            download('./jsonPicture', image['src'], image['id'])
+    except:
+        continue
 
 # xpath方式
-url = "https://search.douban.com/movie/subject_search?search_text=%E5%AE%AB%E5%B4%8E%E9%AA%8F&cat=1002"
-etree = ht.etree
-# driver = webdriver.Chrome('../chromedriver/chromedriver') # linux
-driver = webdriver.Chrome('../chromedriver/chromedriver.exe')   # windows
-driver.get(url)
-html = etree.HTML(driver.page_source)
 src_xpath = "//div[@class='item-root']/a[@class='cover-link']/img[@class='cover']/@src"
 title_path = "//div[@class='item-root']/div[@class='detail']/div[@class='title']/a[@class='title-text']"
-srcs = html.xpath(src_xpath)
-titles = html.xpath(title_path)
-for src, title in zip(srcs, titles):
-    download(src, title.text)
+for i in range(0, 170, 15):
+    try:
+        url = "https://search.douban.com/movie/subject_search?search_text=" + query + "&cat=1002" + '&start=' + str(i)
+        etree = ht.etree
+        # driver = webdriver.Chrome('../chromedriver/chromedriver') # linux
+        driver = webdriver.Chrome('../chromedriver/chromedriver.exe')  # windows
+        driver.get(url)
+        html = etree.HTML(driver.page_source)
+        srcs = html.xpath(src_xpath)
+        titles = html.xpath(title_path)
+        print(srcs)
+        for src, title in zip(srcs, titles):
+            download('./xpathPicture', src, title.text)
+    except:
+        continue
