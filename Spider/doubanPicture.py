@@ -20,7 +20,7 @@ header = {
 
 # 下载图片
 def download(src, id):
-    dir = './' + str(id) + '.jpg'
+    dir = './' + str(id) + '.webp'
     try:
         pic = requests.get(src, timeout=10)
         fp = open(dir, 'wb')
@@ -29,7 +29,7 @@ def download(src, id):
     except requests.exceptions.ConnectionError:
         print('图片无法下载')
 
-
+'''
 # json方式
 for i in range(0, 41081, 20):
     url = 'https://www.douban.com/j/search_photo?q=' + query + '&limit=20&start=' + str(i)
@@ -38,7 +38,7 @@ for i in range(0, 41081, 20):
     for image in response['images']:
         print(image['src'])
         download(image['src'], image['id'])
-
+'''
 
 # xpath方式
 url = "https://search.douban.com/movie/subject_search?search_text=%E5%AE%AB%E5%B4%8E%E9%AA%8F&cat=1002"
