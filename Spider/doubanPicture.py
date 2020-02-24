@@ -63,3 +63,4 @@ for i in range(0, 170, 15):
             download('./xpathPicture', src, title.text)
     except:
         continue
+
