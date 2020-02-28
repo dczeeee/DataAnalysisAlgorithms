@@ -62,14 +62,14 @@ predict_price = dtr.predict(test_features)
 print('回归树二乘偏差均值:', mean_squared_error(test_prices, predict_price))
 print('回归树绝对值偏差均值:', mean_absolute_error(test_prices, predict_price))
 
-'''
+
 # 回归树可视化
 # 参数是回归树模型名称，不输出文件
 dot_data = export_graphviz(dtr, out_file=None)
 graph = graphviz.Source(dot_data)
 # render 方法会在同级目录下生成 Boston PDF文件，内容就是回归树。
-graph.render('Boston')
-'''
+graph.view('Boston')
+
 
 digits = load_digits()
 features = digits.data
