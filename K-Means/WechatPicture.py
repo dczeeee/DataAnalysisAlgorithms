@@ -28,7 +28,8 @@ def load_data(filePath):
 
 
 # 加载图像，得到规范化的结果img，以及图像尺寸
-img, width, height = load_data('weixin.jpg')
+# img, width, height = load_data('weixin.jpg')
+img, width, height = load_data('baby.jpg')
 
 # 用K-Means对图像进行2聚类
 kmeans = KMeans(n_clusters=2)
@@ -44,7 +45,8 @@ for x in range(width):
     for y in range(height):
         # 根据类别设置图像灰度, 类别0 灰度值为255， 类别1 灰度值为127
         pic_mark.putpixel((x, y), int(256/(label[x][y]+1))-1)
-pic_mark.save('weixin_mark.jpg', 'JPEG')
+# pic_mark.save('weixin_mark.jpg', 'JPEG')
+pic_mark.save('baby_mark.jpg', 'JPEG')
 
 
 # 用K-Means对图像进行16聚类
@@ -55,7 +57,8 @@ label = kmeans.predict(img)
 label = label.reshape([width, height])
 
 # 将聚类标识矩阵转化为不同颜色的矩阵
-label_color = (color.label2rgb(label)*255).astype(np.uint8)
-label_color = label_color.transpose(1, 0, 2)
-images = image.fromarray(label_color)
-images.save('weixin_mark_color.jpg')
+label_color = (color.label2rgb(label)*255).astype(np.uint8)     # 将分类标识矩阵转换成不同颜色的矩阵
+label_color = label_color.transpose(1, 0, 2)    # 旋转
+images = image.fromarray(label_color)   # 将矩阵转换为图像
+# images.save('weixin_mark_color.jpg')
+images.save('baby_mark_color.jpg')
