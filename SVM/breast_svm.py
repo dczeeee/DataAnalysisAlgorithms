@@ -41,8 +41,8 @@ features_remain = ['radius_mean', 'texture_mean', 'smoothness_mean', 'compactnes
 train, test = train_test_split(data, test_size=0.3)
 train_X = train[features_remain]
 train_y = train['diagnosis']
-test_X = train[features_remain]
-test_y = train['diagnosis']
+test_X = test[features_remain]
+test_y = test['diagnosis']
 
 # 数据标准化
 stand_scaler = StandardScaler()
