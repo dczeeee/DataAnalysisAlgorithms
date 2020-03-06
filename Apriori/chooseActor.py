@@ -6,7 +6,7 @@ import time
 
 driver = webdriver.Chrome('../chromedriver/chromedriver.exe')  # windows
 
-director = '宁浩'
+director = '张艺谋'
 base_url = 'https://search.douban.com/movie/subject_search?search_text=' + director + '&cat=1002&start='
 file_name = './' + director + '.csv'
 out = open(file_name, 'w', newline='', encoding='utf-8-sig')
@@ -41,14 +41,14 @@ def download(request_url):
             flags.append(movie.text)
             csv_write.writerow(actors)
 
-        print('OK')  # 代表这页数据下载成功
-        print(num)
-        if num >= 14:  # 有可能一页会有14个电影
-            # 继续下一页
-            return True
-        else:
-            # 没有下一页
-            return False
+    print('OK')  # 代表这页数据下载成功
+    print(num)
+    if num >= 14:  # 有可能一页会有14个电影
+        # 继续下一页
+        return True
+    else:
+        # 没有下一页
+        return False
 
 
 # 开始的ID为0，每页增加15
@@ -64,4 +64,19 @@ while start < 10000:  # 最多抽取1万部电影
 out.close()
 print('finished')
 
+# 数据加载
+lists = csv.reader(open(file_name, 'r', encoding='utf-8-sig'))
+data = []
+
+for names in lists:
+    name_new = []
+    for name in names:
+        for name in names:
+            name_new.append(name.strip())
+        data.append(name_new[1:])
+
+# 挖掘频繁项级和关联规则
+itemsets, rules = apriori(data, min_support=0.5, min_confidence=1)
+print(itemsets)
+print(rules)
 
