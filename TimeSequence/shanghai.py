@@ -80,6 +80,3 @@ plt.xlabel('时间')
 plt.ylabel('RMB')
 plt.show()
 
-print(df_month2)
-
-
