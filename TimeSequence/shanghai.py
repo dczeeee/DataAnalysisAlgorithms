@@ -70,7 +70,7 @@ future = pd.DataFrame(index=date_list, columns=df_month.columns)
 df_month2 = pd.concat([df_month2, future])
 df_month2['forecast'] = best_model.predict(start=0, end=348)
 
-# 比特币预测结果显示
+# 上证预测结果显示
 plt.figure(figsize=(20, 7))
 df_month2.Price.plot(label='实际金额')
 df_month2.forecast.plot(color='r', ls='--', label='预测金额')
@@ -80,3 +80,4 @@ plt.xlabel('时间')
 plt.ylabel('RMB')
 plt.show()
 
+print(df_month2)

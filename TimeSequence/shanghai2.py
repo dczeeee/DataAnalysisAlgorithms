@@ -14,6 +14,7 @@ df.index = df.Timestamp
 # 数据探索
 print(df.head())
 
+
 # 设置参数范围
 ps = range(0, 3)
 qs = range(0, 3)
@@ -43,14 +44,12 @@ result_table.columns = ['parameters', 'aic']
 print('最优模型:', best_model.summary())
 # 上证指数预测
 df2 = df[['Price']]
-
 date_list = pd.date_range('2019-03-01', '2020-04-02', periods=None, freq='D')
-
 future = pd.DataFrame(index=date_list, columns=df2.columns)
 df2 = pd.concat([df2, future])
-df2['forecast'] = best_model.predict(start=0, end=7292)
 
-# 比特币预测结果显示
+df2['forecast'] = best_model.predict(start=0, end=7291)
+
 plt.figure(figsize=(20, 7))
 df2.Price.plot(label='实际金额')
 df2.forecast.plot(color='r', ls='--', label='预测金额')
@@ -61,3 +60,5 @@ plt.ylabel('RMB')
 plt.show()
 
 print(df2)
+
+
