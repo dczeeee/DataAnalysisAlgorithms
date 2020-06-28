@@ -18,7 +18,7 @@ pipeline = Pipeline([
     ('randomforestclassifier', rf)
 ])
 
-clf = GridSearchCV(estimator=pipeline, param_grid=parameters)
+clf = GridSearchCV(estimator=pipeline, param_grid=parameters, cv=5)
 
 # 对iris数据集进行分类
 clf.fit(iris.data, iris.target)
